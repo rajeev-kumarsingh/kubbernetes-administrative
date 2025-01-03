@@ -1,0 +1,14 @@
+# This is second pod yaml written by Rajeev Kumar Singh
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod10
+  labels:
+    env: demo
+    type: frontend
+spec:
+  containers:
+  - name: nginx-container1
+    image: nginx
+    ports:
+    - containerPort: 80

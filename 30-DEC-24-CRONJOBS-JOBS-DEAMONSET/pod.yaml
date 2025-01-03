@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: "2024-12-30T10:53:35Z"
+  labels:
+    run: nginx
+  name: nginx
+  namespace: default
+  resourceVersion: "104149"
+  uid: 646617db-5954-43a6-97f2-dd99a52089f9
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+  nodeName: multi-node-cluster2-worker2

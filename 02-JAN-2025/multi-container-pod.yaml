@@ -1,0 +1,27 @@
+# Multi Container Pod (APP-busybox:1.28, init and sidecar)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp
+  labels:
+    name: myapp-pod 
+spec:
+  containers:
+  - name: myapp-container
+    image: busybox:1.28
+    command: ['sh', '-c']
+    args: ['echo the app is running && sleep 3600']
+#   command: ['sh', '-c', 'echo the app is running && sleep 3600']
+# environment variable, scope within the pod
+    env:
+    - name: FIRSTNAME
+      value: "rajeev"
+  initContainers:
+  - name: init-myservice
+    image: busybox:1.28
+    command: ['sh' , '-c']
+    args: ['until nslookup myservice.default.svc.cluster.local; do echo waiting for the service to be up; sleep 2; done']
+  - name: init-mydb
+    image: busybox:1.28
+    command: ['sh' , '-c']
+    args: ['until nslookup mydb.default.svc.cluster.local; do echo waiting for the service to be up; sleep 2; done']

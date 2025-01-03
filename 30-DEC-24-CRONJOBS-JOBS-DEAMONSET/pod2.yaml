@@ -1,0 +1,14 @@
+# Create a pod and try to schedule it manually without the scheduler.
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: nginx-app
+  labels:
+    environment: production
+    tier: frontend
+    application: my-app
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  nodeName: multi-node-cluster2-worker

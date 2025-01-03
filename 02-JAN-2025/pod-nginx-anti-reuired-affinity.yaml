@@ -1,0 +1,18 @@
+#Avoid scheduling a pod on nodes labeled with a specific key-value pair.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-nginx-anti-affinity
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: disktype
+            operator: NotIn
+            values:
+            - ssd
+  containers:
+  - name: nginx-container-anti-affinity
+    image: nginx

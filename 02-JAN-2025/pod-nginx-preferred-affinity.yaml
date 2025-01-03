@@ -1,0 +1,22 @@
+#This manifest describes a Pod that has a preferredDuringSchedulingIgnoredDuringExecution node affinity,disktype: ssd.
+# This means that the pod will prefer a node that has a disktype=ssd label.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-nginx-preferred-affinity
+spec:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: disktype
+            operator: In
+            values:
+            - ssd
+            - hdd
+  containers:
+  - name: pod-nginx-container-preferred-affinity 
+    image: nginx
+    imagePullPolicy: IfNotPresent

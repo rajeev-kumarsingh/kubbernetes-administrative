@@ -1,0 +1,20 @@
+# Node affinity with exists operator
+apiVersion: v1
+kind: Pod
+metadata:
+  name: redis-affinity-exists-operator
+  labels:
+    run: redis
+spec:
+  containers:
+  - name: redis-3
+    image: redis
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        -  matchExpressions:
+           - key: disktype
+             operator: Exists
+             
+             

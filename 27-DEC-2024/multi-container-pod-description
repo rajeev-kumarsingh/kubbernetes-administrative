@@ -1,0 +1,82 @@
+Name:             multi-container-pod
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             multi-control-pane-and-worker-node-worker2/172.19.0.5
+Start Time:       Fri, 27 Dec 2024 13:53:27 +0530
+Labels:           env=demo
+                  type=frontend
+Annotations:      <none>
+Status:           Running
+IP:               10.244.6.7
+IPs:
+  IP:  10.244.6.7
+Containers:
+  nginx-container2:
+    Container ID:   containerd://8f1e99be4758496b13e2c8103a10a53612566e44a700290770c7493a78e077cf
+    Image:          nginx
+    Image ID:       docker.io/library/nginx@sha256:42e917aaa1b5bb40dd0f6f7f4f857490ac7747d7ef73b391c774a41a8b994f15
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Fri, 27 Dec 2024 13:53:33 +0530
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-9l5nh (ro)
+  nginx-container3:
+    Container ID:   containerd://de4f698709b2fceddcd9ddfbc00ca878d00f09ec1cdaf3b157252d8acaafcf87
+    Image:          nginx
+    Image ID:       docker.io/library/nginx@sha256:42e917aaa1b5bb40dd0f6f7f4f857490ac7747d7ef73b391c774a41a8b994f15
+    Port:           <none>
+    Host Port:      <none>
+    State:          Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Fri, 27 Dec 2024 13:54:31 +0530
+      Finished:     Fri, 27 Dec 2024 13:54:34 +0530
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Fri, 27 Dec 2024 13:54:01 +0530
+      Finished:     Fri, 27 Dec 2024 13:54:04 +0530
+    Ready:          False
+    Restart Count:  3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-9l5nh (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-9l5nh:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  74s                default-scheduler  Successfully assigned default/multi-container-pod to multi-control-pane-and-worker-node-worker2
+  Normal   Pulling    73s                kubelet            Pulling image "nginx"
+  Normal   Pulled     68s                kubelet            Successfully pulled image "nginx" in 5.648s (5.648s including waiting). Image size: 68524807 bytes.
+  Normal   Created    68s                kubelet            Created container: nginx-container2
+  Normal   Started    68s                kubelet            Started container nginx-container2
+  Normal   Pulled     65s                kubelet            Successfully pulled image "nginx" in 2.701s (2.701s including waiting). Image size: 68524807 bytes.
+  Normal   Pulled     60s                kubelet            Successfully pulled image "nginx" in 2.076s (2.076s including waiting). Image size: 68524807 bytes.
+  Normal   Pulled     40s                kubelet            Successfully pulled image "nginx" in 4.024s (4.024s including waiting). Image size: 68524807 bytes.
+  Normal   Pulling    13s (x4 over 68s)  kubelet            Pulling image "nginx"
+  Normal   Created    10s (x4 over 65s)  kubelet            Created container: nginx-container3
+  Normal   Started    10s (x4 over 65s)  kubelet            Started container nginx-container3
+  Normal   Pulled     10s                kubelet            Successfully pulled image "nginx" in 2.98s (2.98s including waiting). Image size: 68524807 bytes.
+  Warning  BackOff    6s (x4 over 57s)   kubelet            Back-off restarting failed container nginx-container3 in pod multi-container-pod_default(7b648dda-9278-4e79-89ac-ea159465bc75)

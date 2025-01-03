@@ -1,0 +1,20 @@
+# This is replication controller example 
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx-rc-example
+  labels:
+  env: demo
+spec:
+  template:
+    metadata:
+      name: nginx
+      labels:
+        env: demo
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        ports:
+        - containerPort: 80  
+  replicas: 3

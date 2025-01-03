@@ -1,0 +1,22 @@
+# This is Replica Set yaml file
+# This is a ReplicaSet yaml file
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-rs
+  labels:
+    env: demo
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      env: demo
+  template:
+    metadata:
+      labels:
+        env: demo
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+

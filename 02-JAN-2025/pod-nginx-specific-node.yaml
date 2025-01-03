@@ -1,0 +1,13 @@
+#You can also schedule a pod to one specific node via setting nodeName.
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: pod-with-specific-nodename
+  labels:
+    env: prod
+spec:
+  containers:
+  - name: container-with-specific-nodename
+    image: nginx
+    imagePullPolicy: IfNotPresent
+  nodeName: multi-node-cluster2-worker2

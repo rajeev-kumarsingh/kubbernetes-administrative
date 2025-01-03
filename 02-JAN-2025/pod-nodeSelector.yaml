@@ -1,0 +1,14 @@
+#This pod configuration file describes a pod that has a node selector, disktype: ssd. This means that the pod will get scheduled on a node that# has a disktype=ssd label.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-with-nodeselector
+  labels:
+    run: nginx
+spec:
+  containers:
+  - name: nginx-with-nodeselector
+    image: nginx
+  nodeSelector:
+    disktype: ssd
+

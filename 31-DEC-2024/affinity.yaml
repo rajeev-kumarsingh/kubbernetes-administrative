@@ -1,0 +1,28 @@
+#node affinity yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: redis
+  name: redis-pod-with-affinity
+spec:
+  containers:
+  - image: redis
+    name: redis
+    resources: {}
+  
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: disktype
+            operator: In
+            values:
+            - ssd
+ #          - another-value
+status: {}

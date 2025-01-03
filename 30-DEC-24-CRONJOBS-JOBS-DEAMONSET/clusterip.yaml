@@ -1,0 +1,14 @@
+# This is the clusterip yaml file which used to communicate front end app to the other back end app (database, nodejs backend app and etc).
+apiVersion: v1
+kind: Service
+metadata:
+  name: clusterip-svc
+  labels:
+    env: demo
+spec:
+#  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    env: demo

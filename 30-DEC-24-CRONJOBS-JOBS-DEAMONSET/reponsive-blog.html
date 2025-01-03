@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #0056b3;
+            padding: 0.5rem;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        article {
+            background: white;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        article h2 {
+            margin-top: 0;
+        }
+        footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        footer p {
+            margin: 0;
+        }
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+            }
+            nav a {
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kubernetes Blog</h1>
+    </header>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#about">About</a>
+        <a href="#tutorials">Tutorials</a>
+        <a href="#contact">Contact</a>
+    </nav>
+    <main>
+        <article>
+            <h2>Introduction to Kubernetes</h2>
+            <p>Kubernetes is an open-source platform designed to automate deploying, scaling, and operating application containers. It helps manage containerized applications in a clustered environment.</p>
+        </article>
+        <article>
+            <h2>Why Use Kubernetes?</h2>
+            <p>With Kubernetes, you can achieve high availability, scalability, and flexibility. It simplifies management by automating deployment, updates, and scaling of your applications.</p>
+        </article>
+        <article>
+            <h2>Getting Started</h2>
+            <p>Begin by setting up a Kubernetes cluster on your local machine or cloud provider. Check our tutorials section for step-by-step guides.</p>
+        </article>
+    </main>
+    <footer>
+        <p>&copy; 2024 Kubernetes Blog. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+

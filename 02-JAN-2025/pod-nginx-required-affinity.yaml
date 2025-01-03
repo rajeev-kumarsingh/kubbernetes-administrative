@@ -1,0 +1,20 @@
+#This manifest describes a Pod that has a requiredDuringSchedulingIgnoredDuringExecution node affinity,disktype: ssd.
+# This means that the pod will get scheduled only on a node that has a disktype=ssd label.
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: pod-nginx-reuired-affinity
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: disktype
+            operator: In
+            values:
+            - ssd
+  containers:
+  - name: container-nginx-required-affinity
+    image: nginx
+    imagePullPolicy: IfNotPresent

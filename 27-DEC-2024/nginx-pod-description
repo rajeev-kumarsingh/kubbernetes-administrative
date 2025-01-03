@@ -1,0 +1,58 @@
+Name:             nginx-pod5
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             multi-control-pane-and-worker-node-worker4/172.19.0.4
+Start Time:       Fri, 27 Dec 2024 12:38:59 +0530
+Labels:           env=demo
+                  type=frontend
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.8.5
+IPs:
+  IP:  10.244.8.5
+Containers:
+  nginx-container1:
+    Container ID:   
+    Image:          nginx
+    Image ID:       
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-647m5 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-647m5:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                   From               Message
+  ----     ------     ----                  ----               -------
+  Normal   Scheduled  4m47s                 default-scheduler  Successfully assigned default/nginx-pod5 to multi-control-pane-and-worker-node-worker4
+  Warning  Failed     4m39s                 kubelet            Failed to pull image "nginx": failed to pull and unpack image "docker.io/library/nginx:latest": failed to copy: httpReadSeeker: failed open: failed to do request: Get "https://docker-images-prod.6aa30f8b08e16409b46e0173d6de2f56.r2.cloudflarestorage.com/registry-v2/docker/registry/v2/blobs/sha256/bd/bdb964b66a74fdd475a8375186208cf5197c3189e9a01b3311a3def1d6d787ce/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=f1baa2dd9b876aeb89efebbfc9e5d5f4%2F20241227%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20241227T070907Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=b6e23db4874613356aba12eb1107dcce0434d594f3a135aa084e82dc235a67e7": dial tcp: lookup docker-images-prod.6aa30f8b08e16409b46e0173d6de2f56.r2.cloudflarestorage.com on 192.168.65.254:53: no such host
+  Warning  Failed     4m21s                 kubelet            Failed to pull image "nginx": failed to pull and unpack image "docker.io/library/nginx:latest": failed to copy: httpReadSeeker: failed open: failed to do request: Get "https://docker-images-prod.6aa30f8b08e16409b46e0173d6de2f56.r2.cloudflarestorage.com/registry-v2/docker/registry/v2/blobs/sha256/5e/5e0fa356e6f4a996ca452b017c81aca3d087ae38f873ed8314af16126423b21f/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=f1baa2dd9b876aeb89efebbfc9e5d5f4%2F20241227%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20241227T070925Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=5cd5b3ded17d61276937c5faa841dd5045bf608d8f0ae5406961b22ce396143f": dial tcp: lookup docker-images-prod.6aa30f8b08e16409b46e0173d6de2f56.r2.cloudflarestorage.com on 192.168.65.254:53: no such host
+  Warning  Failed     3m47s                 kubelet            Failed to pull image "nginx": failed to pull and unpack image "docker.io/library/nginx:latest": failed to copy: httpReadSeeker: failed open: failed to do request: Get "https://docker-images-prod.6aa30f8b08e16409b46e0173d6de2f56.r2.cloudflarestorage.com/registry-v2/docker/registry/v2/blobs/sha256/b5/b5368be906ecbd8443efcbfac77af24ab15e33c8fa95acff4dfd2dfeb7cc5ef7/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=f1baa2dd9b876aeb89efebbfc9e5d5f4%2F20241227%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20241227T071000Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=443955b659c299ae16fceedfbf991f18a5355fe6615bd936fa166495375fa7aa": dial tcp: lookup docker-images-prod.6aa30f8b08e16409b46e0173d6de2f56.r2.cloudflarestorage.com on 192.168.65.254:53: no such host
+  Warning  Failed     2m57s                 kubelet            Failed to pull image "nginx": failed to pull and unpack image "docker.io/library/nginx:latest": failed to copy: httpReadSeeker: failed open: failed to do request: Get "https://docker-images-prod.6aa30f8b08e16409b46e0173d6de2f56.r2.cloudflarestorage.com/registry-v2/docker/registry/v2/blobs/sha256/5e/5e0fa356e6f4a996ca452b017c81aca3d087ae38f873ed8314af16126423b21f/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=f1baa2dd9b876aeb89efebbfc9e5d5f4%2F20241227%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20241227T071050Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=5be000f1afbbef21cbbdf69a44fbb9cde918989c8269f2f189ab5641486e931d": dial tcp: lookup docker-images-prod.6aa30f8b08e16409b46e0173d6de2f56.r2.cloudflarestorage.com on 192.168.65.254:53: no such host
+  Normal   Pulling    87s (x5 over 4m47s)   kubelet            Pulling image "nginx"
+  Warning  Failed     81s (x5 over 4m39s)   kubelet            Error: ErrImagePull
+  Warning  Failed     81s                   kubelet            Failed to pull image "nginx": failed to pull and unpack image "docker.io/library/nginx:latest": failed to copy: httpReadSeeker: failed open: failed to do request: Get "https://docker-images-prod.6aa30f8b08e16409b46e0173d6de2f56.r2.cloudflarestorage.com/registry-v2/docker/registry/v2/blobs/sha256/5e/5e0fa356e6f4a996ca452b017c81aca3d087ae38f873ed8314af16126423b21f/data?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=f1baa2dd9b876aeb89efebbfc9e5d5f4%2F20241227%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20241227T071226Z&X-Amz-Expires=1200&X-Amz-SignedHeaders=host&X-Amz-Signature=36b2fb51f81db34f49e435eab09d1ac514d9e27f94a74b59de7f4708667ca8bc": dial tcp: lookup docker-images-prod.6aa30f8b08e16409b46e0173d6de2f56.r2.cloudflarestorage.com on 192.168.65.254:53: no such host
+  Warning  Failed     19s (x15 over 4m39s)  kubelet            Error: ImagePullBackOff
+  Normal   BackOff    4s (x16 over 4m39s)   kubelet            Back-off pulling image "nginx"

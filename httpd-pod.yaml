@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: k8s-secret-example
+spec:
+  containers:
+  - name: httpd-container
+    image: rajeevkumarsingh05/httpd
+    ports: 
+    - containerPort: 80  
+  

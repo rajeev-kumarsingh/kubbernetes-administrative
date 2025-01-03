@@ -1,0 +1,27 @@
+# Schedule the pod except node labeled with name=rajeev
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-nginx-anti-reuired-affinity1
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: name
+            operator: NotIn
+            values:
+            - rajeev
+          - key: disktype
+            operator: NotIn
+            values:
+            - ssd
+#        - matchExpressions:
+#          - key: disktype
+#            operator: NotIn
+#            values: 
+#            - ssd
+  containers:
+  - name: nginx-container
+    image: nginx
