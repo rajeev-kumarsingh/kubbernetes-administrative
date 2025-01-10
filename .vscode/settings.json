@@ -1,0 +1,6 @@
+{
+  "yaml.schemas": {
+    "https://json.schemastore.org/kubernetes": "*.k8s.yaml"
+  }
+}
+

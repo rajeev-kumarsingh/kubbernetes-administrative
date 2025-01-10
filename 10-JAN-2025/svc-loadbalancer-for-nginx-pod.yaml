@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2025-01-10T03:26:36Z"
+  labels:
+    run: nginx
+  name: svc-lodbalancer-nginx
+  namespace: default
+  resourceVersion: "337854"
+  uid: ed7f118d-2fcd-4b11-8e28-6a71b5e96025
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.96.247.233
+  clusterIPs:
+  - 10.96.247.233
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 30157
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    run: nginx
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}

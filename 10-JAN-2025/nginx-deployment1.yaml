@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2025-01-10T03:54:07Z"
+  name: nginx-nodeport-service
+  namespace: default
+  resourceVersion: "340368"
+  uid: 28f91264-5cd7-4382-a4c5-75e84e96c48d
+spec:
+  clusterIP: 10.96.151.53
+  clusterIPs:
+  - 10.96.151.53
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 30743
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: nginx
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

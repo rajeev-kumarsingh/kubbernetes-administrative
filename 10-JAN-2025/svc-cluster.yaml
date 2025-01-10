@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2025-01-10T01:12:21Z"
+  labels:
+    app: svc-cluster
+  name: svc-cluster
+  namespace: default
+  resourceVersion: "335687"
+  uid: 12d37746-b0d9-490a-a629-8e8e04728c7c
+spec:
+  clusterIP: 10.96.7.161
+  clusterIPs:
+  - 10.96.7.161
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: 80-80
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: svc-cluster
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

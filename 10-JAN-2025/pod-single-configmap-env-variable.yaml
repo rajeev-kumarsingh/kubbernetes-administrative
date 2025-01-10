@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-single-configmap-env-variable
+spec:
+  containers:
+  - name: pod-single-configmap-env-variable
+    image: nginx
+    env:
+    # Define the environment varibale for container
+    - name: FIRSTNAME
+      valueFrom:
+        configMapKeyRef:
+          # The ConfigMap containing the value you want to assign to FIRSTNAME
+          name: myconfigmap
+          # Specify the key associated with the value
+          key: firstname
+    - name: MIDDLENAME
+      valueFrom:
+        configMapKeyRef:
+          # The ConfigMap containing the value you want to assign to FIRSTNAME
+          name: myconfigmap
+          # Specify the key associated with the value
+          key: middlename
+    - name: LASTNAME
+      valueFrom:
+        configMapKeyRef:
+          # The ConfigMap containing the value you want to assign to FIRSTNAME
+          name: myconfigmap
+          # Specify the key associated with the value
+          key: lastname
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    ports:
+    - containerPort: 80

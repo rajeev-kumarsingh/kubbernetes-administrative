@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2025-01-10T03:33:18Z"
+  labels:
+    env: test
+  name: svc-nodeport-service-for-pod-single-configmap-env-variable
+  namespace: default
+  resourceVersion: "338467"
+  uid: e89fc9f2-006e-43dc-a596-9c5237703409
+spec:
+  clusterIP: 10.96.45.10
+  clusterIPs:
+  - 10.96.45.10
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 30941
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    env: test
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

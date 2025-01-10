@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: pod
+  name: pod
+spec:
+  containers:
+  - name: pod
+    image: nginx
+    env:
+    - name: FIRSTNAME
+      valueFrom:
+        configMapKeyRef:
+          name: myconfigmap
+          key: firstname
+
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
