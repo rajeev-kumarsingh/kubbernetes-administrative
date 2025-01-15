@@ -204,3 +204,120 @@ The --selector flag works with most kubectl commands, including:
 - kubectl describe
 - kubectl logs
 
+# Set Based Selectors
+Set-based selectors in Kubernetes are used to filter resources based on whether labels meet certain set operations, such as inclusion (in), exclusion (notin), or existence (exists, !exists). These selectors provide more advanced filtering capabilities compared to equality-based selectors.
+## Syntax
+```
+kubectl get <resource> --selector='<label-key> <operation> (<values>)'
+```
+### Supported Operations
+1. ___in___: Matches if the label key exist and it's value is one of the specified values.
+
+```
+kubectl get pods --selector='env in (Production, test)'
+
+kubectl get pods --selector='env in (Production, test)' -o wide
+
+kubectl get pods --show-labels -o wide
+```
+Output:
+![kubectl get pods --selector='env in (Production, test)'](image-18.png)
+List pods where the env label is either Production or test
+
+2. Filter by Exclusion (notin)
+List pods where the env label is neither Production nor test:
+```
+kubectl get pods --show-labels -o wide 
+
+kubectl get pods --selector='env notin (Production, test) -o wide'
+```
+Output:
+![notin selector: kubectl get pods --selector='env notin (Production, test)'](image-19.png)
+
+3.  Filter by Existence (exists)
+>> List pods that have the env label, regardless of its value:
+
+```
+kubectl get pods --selector='env'
+```
+Or explicitly:
+```
+kubectl get pods --selector='env exists'
+```
+Output:
+![kubectl get pods --selector='env'](image-20.png)
+
+4. Filter by Non-Existence (!exists)
+List pods that do not have the env label:
+```
+kubectl get pods --selector='!env'
+```
+Or explicitly:
+```
+kubectl get pods --selector='env !exists'
+```
+Output:
+![!exists (kubectl get pods --selector='!env')](image-21.png)
+
+5. Combine Set-Based Selectors
+>>
+You can combine multiple set-based selectors by separating them with commas. For example, list pods where:
+- The env label is either production or test.
+- The tier label exists.
+
+### set the tier label on specified pod
+check on which pod we have to set tier label
+```
+kubectl get pods --show-labels
+```
+Output
+![list pods with labels](image-22.png)
+
+let's set tier label on nginx pod
+```
+kubectl label pod nginx  tier=frontend
+```
+Output:
+![label pod (kubectl label pod nginx tier=frontend)](image-23.png)
+
+```
+kubectl get pods --show-labels
+```
+Output:
+![List pods with labels (--show-labels)](image-24.png)
+
+Now let's use combine multiple set selector
+```
+kubectl get pods --selector='env in (Production, test),tier '
+```
+Output:
+![combine multiple set based selector](image-25.png)
+
+
+```
+kubectl get pods --selector='env in (Production, test),!tier '
+```
+Output:
+![combine multiple set based selector using comma(,)](image-26.png)
+
+6. Set-Based Selectors Across Namespaces
+> To filter resources across namespaces, add the --all-namespaces flag:
+
+```
+kubectl get pods --all-namespaces --selector='env in (Production, test)'
+```
+Output:
+![set based seletor across all namespaces](image-27.png)
+
+```
+kubectl get pods --all-namespaces --selector='env notin (Production, test)'
+```
+Output:
+![set based seletor used notin across all namespaces](image-28.png)
+
+## Where to Use Set-Based Selectors
+Set-based selectors can be used in any kubectl command that supports the --selector flag, such as:
+
+- kubectl get
+- kubectl delete
+- kubectl describe
