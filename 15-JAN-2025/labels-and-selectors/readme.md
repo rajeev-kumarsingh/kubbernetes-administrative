@@ -17,3 +17,4 @@ Labels and Selectors
 
 3. Labels are the mechanism you use to organise kubernetes objects.
 cmd >>Labels are the mechanism you use to organise kubernetes objects.
+. Labels are the mechanism you use to organise kubernetes objects.
