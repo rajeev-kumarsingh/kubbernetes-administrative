@@ -24,3 +24,11 @@ spec:
     image: nginx
     command: ["bin/bash", "-c", "while true; do echo Hello Rajeev; sleep 5; done"]
 ```
+Apply the pod.yaml file
+```
+kubectl apply -f pod.yaml
+```
+Check labels of Pods 
+```
+kubectl get pods --show-labels
+```
