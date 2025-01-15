@@ -3,7 +3,9 @@ Authentication: Verifying Who You Are
 Kubernetes Authentication and Authorization Simply Explained
 
 Imagine your cluster is a fortress. Authentication is like checking IDs at the gate. Kubeconfig is your keycard containing certificates that identify you to the Kubernetes API server.
+
 ![alt text](image.png)
+
 Making API Calls:
 To run a command against a cluster, you can use the below command
 
