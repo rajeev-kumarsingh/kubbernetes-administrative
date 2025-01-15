@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: label-example
+  labels:
+    env: Production
+    class: pods
+spec:
+  containers:
+  - name: label-example
+    image: nginx
+    command: ["bin/bash", "-c", "while true; do echo Hello Rajeev; sleep 5; done"]
