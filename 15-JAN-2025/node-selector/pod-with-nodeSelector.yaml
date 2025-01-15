@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nodeselector-example
+  labels:
+    name: nodeseletor-example
+    run: nginx
+    env: test
+    class: pod
+spec:
+  containers:
+  - name: nodeselector-example-nginx-container
+    image: nginx
+  nodeSelector:
+    hardware: t2.medium
