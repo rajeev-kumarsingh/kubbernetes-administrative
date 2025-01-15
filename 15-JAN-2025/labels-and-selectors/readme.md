@@ -20,5 +20,5 @@ cmd >>Labels are the mechanism you use to organise kubernetes objects.
 . Labels are the mechanism you use to organise kubernetes objects.
 ..kubectl describe pod
 /kubectl describe pod
->kubectl describe pod
+**kubectl describe pod**
 >>.Labels are the mechanism you use to organise kubernetes objects.
