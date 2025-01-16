@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: rc-example
+  labels:
+    env: test
+    name: rc-pod
+    class: replication-controller
+spec:
+  replicas: 3
+  selector:
+    name: rc-pod
+    env: test
+  template:
+    metadata:
+      name: rc-example
+      labels:
+        name: rc-pod
+        env: test
+        class: replication-controller
+    spec:
+      containers:
+      - name: rc-example-container
+        image: nginx
+        command: [ "bin/bash", "-c", "while true; do echo 'Hello Rajeev'; sleep 10; done" ]
+        ports: 
+        - containerPort: 80 
