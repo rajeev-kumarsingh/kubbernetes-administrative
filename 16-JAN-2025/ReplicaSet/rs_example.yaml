@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-example
+  labels:
+    name: rs-example
+    class: replicaset
+    env: test
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:     #These must match the labels  #We can use matchExpressions for set-based-selector
+    - {key: name, operator: In, values: [rs-example, replicaset, replicaset-example]}
+    - {key: env, operator: NotIn, values: [production, dev]}
+    - {key: tier, operator: In, values: [frontend, backend]}
+#If required, We can use matchExpressions and matchLabels together.
+#We can use matchLabels for equality-based-selector
+  # matchLabels:        
+  #  tier: frontend
+  #  env: test
+  #  name: rs-example
+  template:
+    metadata:
+      name: rs-example
+      labels:
+        name: rs-example
+        env: test
+        class: replicaset
+        tier: frontend
+    spec:
+      containers:
+      - name: rs-example-container
+        image: nginx
+        ports:
+        - containerPort: 80
