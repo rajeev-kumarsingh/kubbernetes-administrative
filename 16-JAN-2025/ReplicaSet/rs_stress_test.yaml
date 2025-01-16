@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: rs-stress-test
+  labels:
+    app: stress-test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: stress-test
+  template:
+    metadata:
+      name: rs-stress-test
+      labels:
+        app: stress-test
+    spec:
+      containers:
+      - name: stress-test-container
+        image: k8s.gcr.io/stress-ng
+  #     ports:
+  #     - containerPort: 80
+        args:
+          - "--cpu"
+          - "2"
+          - "--timeout"
+          - "300s"
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 256Mi
+        
+          
