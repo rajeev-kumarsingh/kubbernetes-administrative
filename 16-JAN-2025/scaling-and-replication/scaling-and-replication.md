@@ -184,7 +184,7 @@ kubectl get pods -o wide
 ![alt text](image-6.png)
 ![alt text](image-7.png)
 
-Now let's scale up or down the replicas from 3 to 10
+Now let's scale up or down the replicas from 3 to 10 and then from 10 to 2
 
 ```
 kubectl scale --replicas=10 rc/rc_example
