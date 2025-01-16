@@ -183,3 +183,29 @@ kubectl get pods -o wide
 
 ![alt text](image-6.png)
 ![alt text](image-7.png)
+
+Now let's scale up or down the replicas from 3 to 10
+
+```
+kubectl scale --replicas=10 rc/rc_example
+```
+
+Output:
+![scale up(kubectl scale --replicas=10 rc/rc_example)](image-8.png)
+Verify the replicas
+
+```
+kubectl get pods -o wide
+```
+
+Output:
+![replicas verifications](image-9.png)
+Now scale down from 10 to 2 and verify it
+
+```
+kubectl scale --replicas=2 rc/rc_example
+```
+
+Output:
+![scale down](image-10.png)
+![scale down verification](image-11.png)
