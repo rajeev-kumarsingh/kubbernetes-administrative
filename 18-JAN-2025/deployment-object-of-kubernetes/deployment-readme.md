@@ -197,3 +197,111 @@ kubectl get rs -o wide
 
 Output:
 ![Deployment scale up or down ](image-11.png)
+
+#
+
+### To check status of Roll out
+
+```
+kubectl rollout status deploy/deploy-example
+```
+
+Output:
+![check status of rollout](image-12.png)
+
+### To check the history of rollout
+
+```
+kubectl rollout history deploy/deployment-example
+```
+
+Output:
+![check rollout history](image-13.png)
+
+### To move back to previous verson
+
+```
+kubectl rollout undo deploy/deployment-example
+```
+
+Output:
+![undo rollout](image-14.png)
+
+### To update the image of a deployment imperatively in Kubernetes, use the kubectl set image command.
+
+To check container name
+
+```
+kubectl describe deploy/deployment-example
+```
+
+![alt text](image-15.png)
+
+```
+kubectl set image deploy/deploy-example <container-name>=<new-image>
+```
+
+```
+kubectl set image deploy/deployment-example deployment-example=nginx:1.25
+```
+
+Output:
+![Set new image of Deployment replicas](image-16.png)
+
+### Verify
+
+![alt text](image-17.png)
+![alt text](image-18.png)
+
+```
+kubectl rollout history deploy/deployment-example
+```
+
+Output:
+![kubectl rollout history deploy/deploy-example](image-19.png)
+
+To rollback
+
+```
+kubectl rollout undo deploy/deployment-example
+```
+
+Output:
+![rollback](image-20.png)
+
+Now check rollout history
+
+```
+kubectl rollout history deploy/deployment-example
+```
+
+Output:
+![rollout history](image-21.png)
+
+To get into the container for do changes
+
+```
+kubectl exec -it <deploy/podname> -c <container-name> -- sh
+```
+
+```
+kubectl exec -it deployment-example-796f6fd98d-459bq -c deployment-example -- sh
+```
+
+Output:
+![exec into container](image-22.png)
+![alt text](image-23.png)
+
+#
+
+# Failed Deployment
+
+Your deployment may get stuck trying to deploy it's
+newest ReplicsSet without ever completing. This can occur due to some of the following factors.
+
+1. Insufficient Quota
+2. Rediness Probes Failure
+3. Image Pull Error
+4. Insufficient Permission
+5. Limit Ranges
+6. Application Runtime misconfiguration
