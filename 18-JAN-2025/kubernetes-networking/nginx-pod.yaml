@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: nginx-pod
+  labels:
+    env: test
+    class: pod
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    ports:
+    - containerPort: 80
+  nodeSelector: 
+    resion: us-east-1

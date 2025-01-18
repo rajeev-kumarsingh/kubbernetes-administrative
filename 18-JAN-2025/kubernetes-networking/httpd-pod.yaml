@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: httpd-pod
+  labels:
+    env: test
+    class: pod
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: resion
+            operator: In
+            values: 
+            - us-east-1
+  containers:
+  - name: httpd-container
+    image: httpd
+    ports:
+    - containerPort: 80
