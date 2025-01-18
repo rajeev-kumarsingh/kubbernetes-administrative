@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: container-networking
+  labels:
+    name: container-networking
+    class: Pod
+    env: test
+    app: httpd
+spec:
+  containers:
+  - name: ubuntu-container
+    image: ubuntu
+    command: ["/bin/bash", "-c", "while true; do echo 'You are in the nginx container'; sleep 20; done"]
+    ports:
+    - containerPort: 8000
+  - name: httpd-container
+    image: httpd
+    ports:
+    - containerPort: 80
+
