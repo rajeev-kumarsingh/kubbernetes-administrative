@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-example
+  labels:
+    env: test
+    class: deployment
+    tier: frontend
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      env: test
+      class: deployment
+      app: nginx
+  template:
+    metadata:
+      name: deployment-example
+      labels:
+        env: test
+        class: deployment
+        tier: frontend
+        app: nginx
+    spec:
+      containers:
+      - name: deployment-example
+        image: nginx
+        command: ["/bin/bash", "-c", "while true; do echo 'Hello Rajeev'; sleep 20; done"]
+        ports:
+        - containerPort: 80
