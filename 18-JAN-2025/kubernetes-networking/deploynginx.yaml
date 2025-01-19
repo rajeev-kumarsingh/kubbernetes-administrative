@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-example-nginx
+  labels:
+    env: test
+    class: deployment
+    type: frontend
+    app: nginx
+    kind: Deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      env: test
+      class: deployment
+      app: nginx
+      kind: Deployment
+  template:
+    metadata:
+      name: deployment-example-nginx
+      labels:
+        env: test
+        class: deployment
+        type: frontend
+        app: nginx
+        kind: Deployment
+    spec:
+      containers:
+      - name: nginx-deploy-container
+        image: nginx
+        ports:
+        - containerPort: 80
+   
