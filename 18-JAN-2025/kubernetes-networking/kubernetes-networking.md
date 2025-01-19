@@ -788,3 +788,11 @@ curl localhost:30010
 
 ![alt text](image-56.png)
 ![alt text](image-58.png)
+
+### Describe nodePort service to check the details
+
+```
+kubectl describe svc/nodeport-service
+```
+
+![alt text](image-59.png)
