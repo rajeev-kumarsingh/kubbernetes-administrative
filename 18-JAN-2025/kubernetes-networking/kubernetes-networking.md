@@ -796,3 +796,7 @@ kubectl describe svc/nodeport-service
 ```
 
 ![alt text](image-59.png)
+
+#
+
+# LoadBalancer Service
