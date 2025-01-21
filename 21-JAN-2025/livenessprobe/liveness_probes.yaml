@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: liveness-probe
+  labels:
+    name: liveness-probe
+    class: pod
+    kind: Pod
+    env: test
+spec: 
+  containers:
+  - name: liveness-container
+    image: ubuntu
+    args:
+    - /bin/bash
+    - -c
+    - touch /tmp/healthy; sleep 1000
+    livenessProbe:                       # Define the Health Check
+      exec:
+        command:                           # Command to run Periodically
+        - cat
+        - /tmp/healthy
+      initialDelaySeconds: 5             # Wait for the specified time before it runs the first probe
+      periodSeconds: 5                   # Run the above command every 5 Second
+      timeoutSeconds: 30
