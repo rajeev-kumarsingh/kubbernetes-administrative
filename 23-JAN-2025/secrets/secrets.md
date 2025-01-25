@@ -37,3 +37,14 @@ You can use Secrets for purposes such as the following:
 
 - You need to have a Kubernetes cluster, and the kubectl command-line tool must be configured to communicate with your cluster. It is recommended to run this tutorial on a cluster with at least two nodes that are not acting as control plane hosts. If you do not already have a cluster, you can create one by using [minikube](https://minikube.sigs.k8s.io/docs/tutorials/multi_node/)
 - To do this exercise, you need the docker command line tool, and a [Docker ID](https://docs.docker.com/accounts/create-account/) for which you know the password.
+
+#
+
+- Secrets are namespaced object, that is exist in the context of the namespace.
+- You can access them via a Volume or an environment variable from a container running in a Pod.
+- The Secrets data on nodes is stored in **tmpfs volume** (tmpfs is a file system which keeps all files in virtual memory, Everything in the tmpfs is temporary in the sense that no file will be created on your hard drive)
+- A per-secret size of 1Mib exist.
+- The **API-SERVER** store **secrets** as plain text in **etcd**.
+- Secrets can be created
+  1. from a text file
+  2. from a yaml file
