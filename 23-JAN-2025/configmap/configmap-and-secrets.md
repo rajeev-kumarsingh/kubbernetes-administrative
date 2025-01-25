@@ -71,7 +71,7 @@ data:
   ui_properties_file_name: "user-interface.properties"
 
 
-  # file-like keys
+  # file-like keys each keys map to multiple values
   game.properties: |
     enemy.types=aliens,monsters
     player.maximum-lives=5
