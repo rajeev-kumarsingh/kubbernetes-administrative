@@ -59,7 +59,7 @@ status: {}
 kubectl apply -f quota-mem-cpu-example
 ```
 
-![alt text](image.png)
+![alt text](./images/image.png)
 
 #
 
@@ -67,7 +67,7 @@ kubectl apply -f quota-mem-cpu-example
 kubectl get ns
 ```
 
-![alt text](image-1.png)
+![alt text](./images/image-1.png)
 
 #
 
@@ -75,7 +75,7 @@ kubectl get ns
 kubectl describe ns/quota-mem-cpu-example
 ```
 
-![alt text](image-2.png)
+![alt text](./images/image-2.png)
 
 #### or
 
@@ -111,7 +111,7 @@ spec:
 kubectl apply -f quota-mem-cpu.yaml -n quota-mem-cpu-example
 ```
 
-![alt text](image-3.png)
+![alt text](./images/image-3.png)
 
 ## View detailed information about the ResourceQuota:
 
@@ -119,7 +119,7 @@ kubectl apply -f quota-mem-cpu.yaml -n quota-mem-cpu-example
 kubectl get -n quota-mem-cpu-example resourcequotas/mem-cpu-demo -o yaml
 ```
 
-![alt text](image-4.png)
+![alt text](./images/image-4.png)
 
 #
 
@@ -127,7 +127,7 @@ kubectl get -n quota-mem-cpu-example resourcequotas/mem-cpu-demo -o yaml
 kubectl get -n quota-mem-cpu-example resourcequotas/mem-cpu-demo
 ```
 
-![alt text](image-5.png)
+![alt text](./images/image-5.png)
 
 #
 
@@ -135,7 +135,7 @@ kubectl get -n quota-mem-cpu-example resourcequotas/mem-cpu-demo
 kubectl describe ns/quota-mem-cpu-example
 ```
 
-![alt text](image-6.png)
+![alt text](./images/image-6.png)
 
 #
 
@@ -182,7 +182,7 @@ spec:
 kubectl apply -f quota-mem-cpu-pod.yaml
 ```
 
-![alt text](image-7.png)
+![alt text](./images/image-7.png)
 
 ### Verify that the Pod is running and that its (only) container is healthy:
 
@@ -190,7 +190,7 @@ kubectl apply -f quota-mem-cpu-pod.yaml
 
 ```
 
-![alt text](image-8.png)
+![alt text](./images/image-8.png)
 
 #
 
@@ -198,7 +198,7 @@ kubectl apply -f quota-mem-cpu-pod.yaml
 kubectl get pods -o wide -n quota-mem-cpu-example
 ```
 
-![alt text](image-9.png)
+![alt text](./images/image-9.png)
 
 #
 
@@ -208,7 +208,7 @@ kubectl get pods -o wide -n quota-mem-cpu-example
 kubectl get resourcequotas mem-cpu-demo  -n quota-mem-cpu-example -o yaml
 ```
 
-![alt text](image-10.png)
+![alt text](./images/image-10.png)
 
 #
 
@@ -216,7 +216,7 @@ kubectl get resourcequotas mem-cpu-demo  -n quota-mem-cpu-example -o yaml
 kubectl describe ns quota-mem-cpu-example
 ```
 
-![alt text](image-11.png)
+![alt text](./images/image-11.png)
 The output shows the quota along with how much of the quota has been used. You can see that the memory and CPU requests and limits for your Pod do not exceed the quota.
 
 #
@@ -256,7 +256,7 @@ kubectl apply -f quota-mem-cpu-pod-2.yaml
 ```
 
 The second Pod does not get created. The output shows that creating the second Pod would cause the memory request total to exceed the memory request quota.
-![alt text](image-12.png)
+![alt text](./images/image-12.png)
 
 #
 
