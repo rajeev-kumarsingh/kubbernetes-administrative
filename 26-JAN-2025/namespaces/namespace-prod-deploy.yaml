@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: cattle
+  name: cattle
+  namespace: production
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cattle
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: cattle
+    spec:
+      containers:
+      - image: registry.k8s.io/serve_hostname
+        name: serve-hostname-j8jkg
+        resources: {}
+status: {}
