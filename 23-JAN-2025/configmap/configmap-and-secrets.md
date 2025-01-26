@@ -153,6 +153,24 @@ spec:
         path: "user-interface.properties"
 ```
 
+```
+cat configure-pod.yaml
+```
+
+![alt text](image-3.png)
+
+### Apply and List the Pod
+
+```
+kubectl apply -f configure-pod.yaml
+```
+
+```
+kubectl get pods -o wide
+```
+
+![alt text](image-2.png)
+
 For this example, defining a volume and mounting it inside the **demo** container as<span style="color:yellow">**/config**</span> creates two files,<span style="color:yellow">**/config/game.properties**</span> and <span style="color:yellow">**/config/user-interface.properties**</span>, even though there are four keys in the ConfigMap. This is because the Pod definition specifies an items array in the volumes section. If you omit the <span style="color:yellow">**items**</span> array entirely, every key in the ConfigMap becomes a file with the same name as the key, and you get 4 files.
 
 #
