@@ -170,8 +170,111 @@ kubectl get pods -o wide
 ```
 
 ![alt text](image-2.png)
+![alt text](image-4.png)
 
+```
+kubectl exec -it pod/configmap-demo-pod -c demo -- sh
+```
+
+```
+ls
+cd config
+ls
+
+```
+
+![alt text](image-5.png)
+
+```
+kubectl delete pod configmap-demo-pod
+
+kubectl delete configmap game-demo
+```
+
+![alt text](image-6.png)
 For this example, defining a volume and mounting it inside the **demo** container as<span style="color:yellow">**/config**</span> creates two files,<span style="color:yellow">**/config/game.properties**</span> and <span style="color:yellow">**/config/user-interface.properties**</span>, even though there are four keys in the ConfigMap. This is because the Pod definition specifies an items array in the volumes section. If you omit the <span style="color:yellow">**items**</span> array entirely, every key in the ConfigMap becomes a file with the same name as the key, and you get 4 files.
+
+Example:
+
+```
+kubectl apply -f configmap-example.yaml
+```
+
+![alt text](image-8.png)
+
+```
+kubectl get configmaps
+```
+
+![alt text](image-10.png)
+
+```
+vim configure-pod1.yaml
+```
+
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-demo-pod
+spec:
+  containers:
+  - name: demo
+    image: alpine
+    command: ["sleep", "3600"]
+    env:
+      # Define the environment variable
+      - name: PLAYER_INITIAL_LIVES
+        # Notice that the case is different here from the key name in the configmap
+        valueFrom:
+          configMapKeyRef:
+            name: game-demo  # The configmap this value come from
+            key: player_initial_lives  # the key to fetch
+      - name: UI_PROPERTIES_FILE_NAME
+        valueFrom:
+          configMapKeyRef:
+            name: game-demo
+            key: ui_properties_file_name
+    volumeMounts:  # mount the volume inside container, name-config , path- /config, permission- readOnly
+    - name: config
+      mountPath: "/config"
+      readOnly: true
+  volumes:
+  #You set volumes at the Pod level, then mount them into containers inside that Pod
+  - name: config
+    configMap:
+      # Provide the name of the ConfigMap you want to mount.
+      name: game-demo
+```
+
+```
+cat configure-pod1.yaml
+```
+
+```
+kubectl apply -f configure-pod1.yaml
+```
+
+![alt text](image-7.png)
+
+```
+kubectl get pods -o wide
+```
+
+![alt text](image-9.png)
+
+```
+kubectl exec -it pod/configmap-demo-pod -c demo -- sh
+```
+
+```
+ls
+cd config
+ls
+
+```
+
+![alt text](image-12.png)
 
 #
 
