@@ -56,7 +56,7 @@ Creation and deletion of namespaces are described in the [Admin Guide documentat
   kubectl get ns
   ```
 
-  ![kubectl get ns](image.png)
+  ![kubectl get ns](./images/image.png)
 
 - You can also get the summary of a specific namespace using:
 
@@ -69,7 +69,7 @@ Creation and deletion of namespaces are described in the [Admin Guide documentat
   kubectl get ns kube-system
   ```
 
-  ![alt text](image-1.png)
+  ![alt text](./images/image-1.png)
 
 - Or you can get detailed information with:
 
@@ -82,7 +82,7 @@ Creation and deletion of namespaces are described in the [Admin Guide documentat
   kubectl describe ns kube-system
   ```
 
-  ![alt text](image-2.png)
+  ![alt text](./images/image-2.png)
   Note that these details show both resource quota (if present) as well as resource limit ranges.
 
   Resource quota tracks aggregate usage of resources in the Namespace and allows cluster operators to define Hard resource usage limits that a Namespace may consume.
@@ -148,7 +148,7 @@ Avoid creating namespace with prefix kube-, since it is reserved for Kubernetes 
   kubectl get ns
   ```
 
-  ![alt text](image-3.png)
+  ![alt text](./images/image-3.png)
 
 - Alternatively, you can create namespace using below command:
 
@@ -156,7 +156,7 @@ Avoid creating namespace with prefix kube-, since it is reserved for Kubernetes 
    kubectl create ns my-test-namespace
   ```
 
-  ![alt text](image-4.png)
+  ![alt text](./images/image-4.png)
   The name of your namespace must be a valid [DNS label](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-label-names).
 
 #
@@ -190,7 +190,7 @@ kubectl delete ns/local-path-storage \
 kubectl get ns
 ```
 
-![alt text](image-5.png)
+![alt text](./images/image-5.png)
 
 ## Warning: This deletes everything under the namespace!
 
@@ -244,7 +244,7 @@ metadata:
 kubectl apply -f namespace-dev.yaml
 ```
 
-![namespace-dev](image-6.png)
+![namespace-dev](./images/image-6.png)
 
 ### And then let's create the **_production_** namespace using kubectl:
 
@@ -265,7 +265,7 @@ metadata:
 kubectl apply -f namespace-prod.yaml
 ```
 
-![alt text](image-7.png)
+![alt text](./images/image-7.png)
 
 ### To be sure things are right, list all of the namespaces in our cluster.
 
@@ -273,7 +273,7 @@ kubectl apply -f namespace-prod.yaml
 kubectl get ns --show-labels
 ```
 
-![alt text](image-8.png)
+![alt text](./images/image-8.png)
 
 ```
 kubectl get ns development --show-labels
@@ -283,7 +283,7 @@ kubectl get ns development --show-labels
 kubectl get ns production --show-labels
 ```
 
-![alt text](image-9.png)
+![alt text](./images/image-9.png)
 
 ## Create pods in each namespace
 
@@ -328,7 +328,7 @@ status: {}
 kubectl apply -f namespace-dev-deploy.yaml
 ```
 
-![alt text](image-10.png)
+![alt text](./images/image-10.png)
 
 or
 
@@ -346,13 +346,13 @@ List deployment
 kubectl get deploy -o wide -n development
 ```
 
-![alt text](image-11.png)
+![alt text](./images/image-11.png)
 
 ```
 kubectl get pods -o wide -l app=namespace-dev-deploy -n development
 ```
 
-![alt text](image-12.png)
+![alt text](./images/image-12.png)
 And this is great, developers are able to do what they want, and they do not have to worry about affecting content in the production namespace.
 
 ### Let's switch to the production namespace and show how resources in one namespace are hidden from the other. The production namespace should be empty, and the following commands should return nothing.
@@ -365,7 +365,7 @@ kubectl get deployment -n=production
 kubectl get pods -o wide -n production
 ```
 
-![alt text](image-13.png)
+![alt text](./images/image-13.png)
 
 ### Production likes to run cattle, so let's create some cattle pods.
 
@@ -414,7 +414,7 @@ kubectl get deployment -n=production
 
 ```
 
-![alt text](image-14.png)
+![alt text](./images/image-14.png)
 
 #### Or
 
@@ -429,7 +429,7 @@ kubectl get deployment -n=production
 kubectl get pods -o wide -n production -l app=cattle
 ```
 
-![alt text](image-15.png)
+![alt text](./images/image-15.png)
 At this point, it should be clear that the resources users create in one namespace are hidden from the other namespace.
 
 #### As the policy support in Kubernetes evolves, we will extend this scenario to show how you can provide different authorization rules for each namespace.
@@ -496,13 +496,13 @@ kubectl api-resources --namespaced=false
 kubectl api-resources --namespaced=true
 ```
 
-![alt text](image-17.png)
+![alt text](./images/image-17.png)
 
 ```
 kubectl api-resources --namespaced=false
 ```
 
-![alt text](image-18.png)
+![alt text](./images/image-18.png)
 
 #
 
