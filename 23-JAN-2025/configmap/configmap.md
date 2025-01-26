@@ -1,4 +1,4 @@
-# Configmap and Secrets
+# Configmap
 
 - While performing application deployments on k8s cluster, sometime we need to change the application configuration file depending on environment like dev, QA, stage or prod.
 - Changing this application configuration file means we need to change source code, commit the change, creating a new image and then go through the complete deployment process.
@@ -61,6 +61,10 @@ The spec of a<span style="color:yellow"> **static Pod** </span>cannot refer to a
 ### Here's an example ConfigMap that has some keys with single values, and other keys where the value looks like a fragment of a configuration format.
 
 ```
+vim configmap-example.yaml
+```
+
+```
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -80,6 +84,16 @@ data:
     color.bad=yellow
     allow.textmode=true
 ```
+
+```
+kubectl create configmap game-demo --from-file=configmap-example.yaml
+```
+
+```
+kubectl get configmaps
+```
+
+![configmap ](image-1.png)
 
 ## There are four different ways that you can use a ConfigMap to configure a container inside a Pod:
 
@@ -138,6 +152,24 @@ spec:
       - key: "user-interface.properties"
         path: "user-interface.properties"
 ```
+
+```
+cat configure-pod.yaml
+```
+
+![alt text](image-3.png)
+
+### Apply and List the Pod
+
+```
+kubectl apply -f configure-pod.yaml
+```
+
+```
+kubectl get pods -o wide
+```
+
+![alt text](image-2.png)
 
 For this example, defining a volume and mounting it inside the **demo** container as<span style="color:yellow">**/config**</span> creates two files,<span style="color:yellow">**/config/game.properties**</span> and <span style="color:yellow">**/config/user-interface.properties**</span>, even though there are four keys in the ConfigMap. This is because the Pod definition specifies an items array in the volumes section. If you omit the <span style="color:yellow">**items**</span> array entirely, every key in the ConfigMap becomes a file with the same name as the key, and you get 4 files.
 
