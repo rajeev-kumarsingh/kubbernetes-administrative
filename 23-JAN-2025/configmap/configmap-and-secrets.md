@@ -185,6 +185,13 @@ ls
 
 ![alt text](image-5.png)
 
+```
+kubectl delete pod configmap-demo-pod
+
+kubectl delete configmap game-demo
+```
+
+![alt text](image-6.png)
 For this example, defining a volume and mounting it inside the **demo** container as<span style="color:yellow">**/config**</span> creates two files,<span style="color:yellow">**/config/game.properties**</span> and <span style="color:yellow">**/config/user-interface.properties**</span>, even though there are four keys in the ConfigMap. This is because the Pod definition specifies an items array in the volumes section. If you omit the <span style="color:yellow">**items**</span> array entirely, every key in the ConfigMap becomes a file with the same name as the key, and you get 4 files.
 
 #
