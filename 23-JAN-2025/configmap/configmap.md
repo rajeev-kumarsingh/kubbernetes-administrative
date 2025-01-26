@@ -364,6 +364,9 @@ kind: ConfigMap
 metadata:
   name: myconfigmap
 data:
+  firstname: rajeev
+  lastname: singh
+  middlename: kumar
   username: k8s-admin
   access_level: "1"
 ```
@@ -374,6 +377,12 @@ data:
 kubectl apply -f myconfigmap.yaml
 
 ```
+
+```
+kubectl get configmaps
+```
+
+![alt text](image-13.png)
 
 ## The following Pod consumes the content of the ConfigMap as environment variables:
 
@@ -416,11 +425,36 @@ The output is similar to this:
 
 ```
 ...
-username: "k8s-admin"
-access_level: "1"
+access_level=1
+KUBERNETES_PORT=tcp://10.96.0.1:443
+KUBERNETES_SERVICE_PORT=443
+HOSTNAME=env-config
+NODEPORT_SERVICE_PORT_80_TCP=tcp://10.96.166.83:80
+SHLVL=1
+username=k8s-admin
+HOME=/root
+lastname=singh
+middlename=kumar
+NODEPORT_SERVICE_SERVICE_HOST=10.96.166.83
+KUBERNETES_PORT_443_TCP_ADDR=10.96.0.1
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+KUBERNETES_PORT_443_TCP_PORT=443
+KUBERNETES_PORT_443_TCP_PROTO=tcp
+NODEPORT_SERVICE_SERVICE_PORT=80
+NODEPORT_SERVICE_PORT=tcp://10.96.166.83:80
+firstname=rajeev
+NODEPORT_SERVICE_PORT_80_TCP_ADDR=10.96.166.83
+KUBERNETES_PORT_443_TCP=tcp://10.96.0.1:443
+KUBERNETES_SERVICE_PORT_HTTPS=443
+KUBERNETES_SERVICE_HOST=10.96.0.1
+PWD=/
+NODEPORT_SERVICE_PORT_80_TCP_PORT=80
+NODEPORT_SERVICE_PORT_80_TCP_PROTO=tcp
 ...
 
 ```
+
+![alt text](image-14.png)
 
 ### Sometimes a Pod won't require access to all the values in a ConfigMap. For example, you could have another Pod which only uses the username value from the ConfigMap. For this use case, you can use the <span style="color:yellow">env.valueFrom</span> syntax instead, which lets you select individual keys in a ConfigMap. The name of the environment variable can also be different from the key within the ConfigMap.
 

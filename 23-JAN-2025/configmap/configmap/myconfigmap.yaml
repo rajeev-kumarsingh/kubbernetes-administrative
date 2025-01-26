@@ -1,9 +1,10 @@
 apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myconfigmap
 data:
   firstname: rajeev
   lastname: singh
   middlename: kumar
-kind: ConfigMap
-metadata:
-  creationTimestamp: null
-  name: myconfigmap
+  username: k8s-admin
+  access_level: "1"
