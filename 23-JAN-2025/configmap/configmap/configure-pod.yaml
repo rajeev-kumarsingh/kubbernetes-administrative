@@ -13,7 +13,7 @@ spec:
         # Notice that the case is different here from the key name in the configmap
         valueFrom:
           configMapKeyRef:
-            name: geme-demo  # The configmap this value come from
+            name: game-demo  # The configmap this value come from
             key: player_initial_lives  # the key to fetch
       - name: UI_PROPERTIES_FILE_NAME
         valueFrom:
