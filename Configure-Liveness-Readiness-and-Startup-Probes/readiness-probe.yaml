@@ -1,0 +1,37 @@
+# Readiness Probe
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: readiness-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: readiness-selector-app
+  template:
+    metadata:
+      labels:
+        app: readiness-selector-app
+    spec:
+      containers:
+      - name: readiness-selector-app
+        image: nginx
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5 # Delay before first probe # ensures that the probe waits 5 seconds before running.
+          periodSeconds: 10 # checks readiness every 10 seconds. # Frequency of readiness checks1
+          failureThreshold: 3
+          successThreshold: 1 # Default is 1 (pod becomes ready after 1 success)
+          timeoutSeconds: 2 # Increase timeout in case of slow responses
+
+# Kubernetes checks http://<pod-ip>:80/ready before sending traffic to this pod.
+
+# If the probe fails, the pod is removed from the Service's endpoint list.
