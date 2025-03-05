@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guaranteed-deployment
+  labels:
+    app: guaranteed-deployment-example
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: kind-calico-worker2
+      containers:
+      - name: myapp
+        image: nginx
+        env:
+        - name: "DB_HOSTNAME"
+          value: "type here the required details"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 80

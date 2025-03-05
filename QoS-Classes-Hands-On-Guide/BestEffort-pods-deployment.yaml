@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: besteffort-deployment
+  labels:
+    app: besteffort-deployment-examples
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: kind-calico-worker2
+      containers:
+      - name: myapp
+        image: nginx
+        ports:
+        - containerPort: 80
