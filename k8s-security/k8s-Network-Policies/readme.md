@@ -425,7 +425,7 @@ kind delete cluster --name cluster-with-custom-networkpolicies
 kind get clusters
 ```
 
-![alt text](image-26.png)
+![alt text](./images/image-26.png)
 
 - Let's create a new cluster and try it out
 - Follow this link to create cluster and install Calico
