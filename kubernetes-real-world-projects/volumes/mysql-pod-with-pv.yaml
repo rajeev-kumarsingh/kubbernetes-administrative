@@ -1,0 +1,21 @@
+# Deploy MySQL Pod with Persistent Volume
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql-pod
+  labels:
+    name: mysql-pod
+spec:
+  containers:
+  - name: mysql-container
+    image: mysql:8.0
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: "rootpassword"
+    volumeMounts:
+    - mountPath: "/var/lib/mysql"
+      name: mysql-storage
+  volumes:
+  - name: mysql-storage
+    persistentVolumeClaim:
+      claimName: mysql-pvc
