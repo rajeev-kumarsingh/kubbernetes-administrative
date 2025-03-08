@@ -609,88 +609,92 @@ spec:
 
   - [ExternalName](https://kubernetes.io/docs/concepts/services-networking/service/#externalname)
 
-    - The ExternalName service type in Kubernetes is used to map a service inside a cluster to an external DNS name without proxying traffic. Instead of forwarding requests to a cluster IP, it simply returns the CNAME record (external domain name) to the client, letting it directly connect to the external service.
-    - How `ExternalName` Service Works
+        - The ExternalName service type in Kubernetes is used to map a service inside a cluster to an external DNS name without proxying traffic. Instead of forwarding requests to a cluster IP, it simply returns the CNAME record (external domain name) to the client, letting it directly connect to the external service.
+        - How `ExternalName` Service Works
 
-    1. When a pod or another service tries to access the `ExternalName` service, Kubernetes returns a `CNAME` record instead of a `cluster IP`.
-    2. The application running inside the cluster directly resolves and communicates with the external service.
-    3. No kube-proxy or load balancing is involved.
+        1. When a pod or another service tries to access the `ExternalName` service, Kubernetes returns a `CNAME` record instead of a `cluster IP`.
+        2. The application running inside the cluster directly resolves and communicates with the external service.
+        3. No kube-proxy or load balancing is involved.
 
-    - Key Use Cases
+        - Key Use Cases
 
-      - Accessing external databases (e.g., AWS RDS, external MySQL/PostgreSQL).
-      - Connecting to third-party services like APIs, SaaS, etc.
-      - Creating an alias for an external service so that internal applications can use a consistent service name.
-      - Example: ExternalName Service for an External Database
-        - Let's assume we have an external PostgreSQL database running on database.example.com. We want our Kubernetes applications to connect to it using a Kubernetes service name instead of a raw domain.
-      - `Step 1:` Create the ExternalName Service
-      - Apply the following YAML manifest
+          - Accessing external databases (e.g., AWS RDS, external MySQL/PostgreSQL).
+          - Connecting to third-party services like APIs, SaaS, etc.
+          - Creating an alias for an external service so that internal applications can use a consistent service name.
+          - Example: ExternalName Service for an External Database
+            - Let's assume we have an external PostgreSQL database running on database.example.com. We want our Kubernetes applications to connect to it using a Kubernetes service name instead of a raw domain.
+          - `Step 1:` Create the ExternalName Service
+          - Apply the following YAML manifest
 
-      ```py
-      apiVersion: v1
-      kind: Service
-      metadata:
-        name: my-external-db
-      spec:
-        type: ExternalName
-        externalName: database.example.com
+          ```py
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: my-external-db
+          spec:
+            type: ExternalName
+            externalName: database.example.com
 
-      ```
+          ```
 
-      - `Step 2:` Verify the Service
+          - `Step 2:` Verify the Service
 
-      ```sh
-      kubectl get svc my-external-db
+          ```sh
+          kubectl get svc my-external-db
 
-      ```
+          ```
 
-      - Testing the ExternalName Service
+          - Testing the ExternalName Service
 
-        - Once the service is created, any pod inside the cluster can resolve my-external-db to database.example.com. You can test this using an interactive pod
+            - Once the service is created, any pod inside the cluster can resolve my-external-db to database.example.com. You can test this using an interactive pod
 
-        ```sh
-        kubectl run -it --rm test-pod --image=busybox --restart=Never -- nslookup my-external-db
+            ```sh
+            kubectl run -it --rm test-pod --image=busybox --restart=Never -- nslookup my-external-db
 
-        ```
+            ```
 
-      - Connecting Applications to `ExternalName` Service
+          - Connecting Applications to `ExternalName` Service
 
-        - Example: Connecting a Pod to the External Database
-        - Modify a pod’s configuration to connect to the database using `my-external-db`
+            - Example: Connecting a Pod to the External Database
+            - Modify a pod’s configuration to connect to the database using `my-external-db`
 
-        ```py
-        apiVersion: v1
-        kind: Pod
-        metadata:
-          name: app-pod
-        spec:
-          containers:
-          - name: app-container
-            image: my-app-image
-            env:
-              - name: DB_HOST
-                value: "my-external-db"
-              - name: DB_PORT
-                value: "5432"
+            ```py
+            apiVersion: v1
+            kind: Pod
+            metadata:
+              name: app-pod
+            spec:
+              containers:
+              - name: app-container
+                image: my-app-image
+                env:
+                  - name: DB_HOST
+                    value: "my-external-db"
+                  - name: DB_PORT
+                    value: "5432"
 
-        ```
+            ```
 
-        - The application running inside the pod will now connect to `my-external-db:5432`, which resolves to `database.example.com:5432`.
+            - The application running inside the pod will now connect to `my-external-db:5432`, which resolves to `database.example.com:5432`.
 
-      -
-      -
-      -
-      -
-      -
-      -
+          # Node liveness impact on load balancer traffic
 
-    -
-    -
-    -
-    -
-    -
-    -
+          - Load balancer health checks are critical to modern applications. They are used to determine which server (virtual machine, or IP address) the load balancer should dispatch traffic to. The Kubernetes APIs do not define how health checks have to be implemented for Kubernetes managed load balancers, instead it's the cloud providers (and the people implementing integration code) who decide on the behavior. Load balancer health checks are extensively used within the context of supporting the externalTrafficPolicy field for Services.
 
+          # Load balancers with mixed protocol types
+
+          - By default, for LoadBalancer type of Services, when there is more than one port defined, all ports must have the same protocol, and the protocol must be one which is supported by the cloud provider.
+          - The feature gate `MixedProtocolLBService` (enabled by default for the kube-apiserver as of v1.24) allows the use of different protocols for LoadBalancer type of Services, when there is more than one port defined.
+          >> Note: The set of protocols that can be used for load balanced Services is defined by your cloud provider; they may impose restrictions beyond what the Kubernetes API enforces.
+
+# Disabling load balancer NodePort allocation
+
+- You can optionally disable node port allocation for a Service of type: LoadBalancer, by setting the field spec.allocateLoadBalancerNodePorts to false. This should only be used for load balancer implementations that route traffic directly to pods as opposed to using node ports. By default, spec.allocateLoadBalancerNodePorts is true and type LoadBalancer Services will continue to allocate node ports. If spec.allocateLoadBalancerNodePorts is set to false on an existing Service with allocated node ports, those node ports will not be de-allocated automatically. You must explicitly remove the nodePorts entry in every Service port to de-allocate those node ports.
+
+# Specifying class of load balancer implementation
+
+- For a Service with type set to LoadBalancer, the .spec.loadBalancerClass field enables you to use a load balancer implementation other than the cloud provider default.
+- If you specify .spec.loadBalancerClass, it is assumed that a load balancer implementation that matches the specified class is watching for Services. Any default load balancer implementation (for example, the one provided by the cloud provider) will ignore Services that have this field set. spec.loadBalancerClass can be set on a Service of type LoadBalancer only. Once set, it cannot be changed. The value of spec.loadBalancerClass must be a label-style identifier, with an optional prefix such as "internal-vip" or "example.com/internal-vip". Unprefixed names are reserved for end-users.
 -
 -
 -
