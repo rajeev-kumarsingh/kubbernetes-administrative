@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-envars-resourcefieldref
+  labels:
+    app: downward-api
+spec:
+  containers:
+  - name: test-container
+    image: registry.k8s.io/busybox:1.27.2
+    command: [ "sh", "-c" ]
+    args:
+    - while true; do echo -en '\n'; printenv MY_CPU_REQUEST MY_CPU_LIMIT MY_MEM_REQUEST MY_MEM_LIMIT; sleep 10; done
+    env:
+    - name: MY_CPU_REQUEST
+      valueFrom:
+        resourceFieldRef:
+          resource: requests.cpu
+    - name: MY_CPU_LIMIT
+      valueFrom:
+        resourceFieldRef:
+          resource: limits.cpu
+    - name: MY_MEM_REQUEST
+      valueFrom:
+        resourceFieldRef:
+          resource: requests.memory
+    - name: MY_MEM_LIMIT
+      valueFrom:
+        resourceFieldRef:
+          resource: limits.memory
+    resources:
+      requests:
+        cpu: "125m"
+        memory: "32Mi"
+      limits:
+        cpu: "250m"
+        memory: "64Mi"
+  restartPolicy: Never
