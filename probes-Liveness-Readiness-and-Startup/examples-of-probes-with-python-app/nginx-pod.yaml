@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: python-app
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    env: test
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx
+    ports:
+    - containerPort: 80
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: python-app
+  namespace: python-app
+  labels:
+    name: python-app
+spec:
+  containers:
+  - name: python-container
+    image: rajeevkumarsingh05/python-app:11-06-2025-v1
+    #resources:
+    #limits:
+    #memory: "128Mi"
+    #cpu: "500m"
+    livenessProbe:
+      httpGet:
+        path: /health
+        port: 5000
+      initialDelaySeconds: 10
+      periodSeconds: 5
+      #httpHeaders:
+      #- name: Custome-Header
+      # value: Awesome
+    readinessProbe:
+      httpGet:
+        path: /k8s
+        port: 5000
+      initialDelaySeconds: 20
+      periodSeconds: 10
+    startupProbe:
+      tcpSocket:
+        port: 5000
+      failureThreshold: 3
+      periodSeconds: 10
+    ports:
+    - containerPort: 5000
