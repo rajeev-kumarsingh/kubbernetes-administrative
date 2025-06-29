@@ -1,5 +1,7 @@
 # `init` Container
 
+![alt text](./img/image5.png)
+
 - Kubernetes pods can have more than one container. These containers in a pod work together to achieve a common goal.
 - Init Containers are containers that start and run to completion before starting the main containers in the pod. It acts as a preparatory step, allowing us to perform initialization tasks, configure prerequisites, or configure dependencies required by the application in the main containers.
   ![init container](./img/image.png)
@@ -127,8 +129,18 @@ kubectl port-forward pod/web-server-pod 8080:80
 
 ```
 
+![alt text](image-1.png)
+
+## Check events
+
+```bash
+kubectl describe pod/web-server-pod
+```
+
+## ![alt text](image-3.png)
+
 - Now, if you try to access the Nginx app on localhost:8080 from your workstation, you can see the Nginx index page displaying a message with the Pod IP address as shown in the image below.
-  ![alt text](./img/image-3.png)
+  ![alt text](image-2.png)
 
 ## Adding CPU/Memory Resources
 
