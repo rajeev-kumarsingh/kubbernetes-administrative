@@ -1,0 +1,58 @@
+spec:
+  initContainers:
+  - name: init-container
+    image: busybox:latest
+    command:
+    - "sh"
+    - "-c"
+    - "echo Initializing... && sleep 5"
+    imagePullPolicy: IfNotPresent
+    env:
+    - name: INIT_ENV_VAR
+      value: "init-value"
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+      requests:
+        memory: "64Mi"
+        cpu: "250m"
+    volumeMounts:
+    - name: init-container-volume
+      mountPath: /init-data
+    ports:
+    - containerPort: 80
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+      capabilities:
+        add: ["NET_ADMIN"]
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 5
+      periodSeconds: 10
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 15
+      periodSeconds: 20
+    startupProbe:
+      httpGet:
+        path: /
+        port: 80
+      initialDelaySeconds: 5
+      periodSeconds: 5
+    lifecycle:
+       postStart:
+         exec:
+           command: ["/bin/sh", "-c", "echo 'PostStart'"]
+       preStop:
+         exec:
+           command: ["/bin/sh", "-c", "echo 'PreStop'"]
+    restartPolicy: Always
+  volumes:
+  - name: init-container-volume
+    emptyDir: {}
