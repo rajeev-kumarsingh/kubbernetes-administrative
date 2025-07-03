@@ -2,3 +2,4 @@ multi-node-cluster1-control-plane
 multi-node-cluster1-worker
 multi-node-cluster1-worker2
 multi-node-cluster1-worker3
+*.env
