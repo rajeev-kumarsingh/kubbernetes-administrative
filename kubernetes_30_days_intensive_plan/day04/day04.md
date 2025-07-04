@@ -103,3 +103,5 @@ kubectl describe pod/sidecar-example-57b7585778-gvd5s
 ![alt text](./img/describe-pod2.png)
 
 ---
+
+> Note: Day04-Pods: What, Why, and How , Creating and Managing Pods,Replication Controllers, ReplicaSets, Deployments done but tomorrow will continue from replication, ReplicaSets and Deployment revision
