@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-with-rolling-update-strategy
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 1
+        minUnavailable: 1
+  selector:
+    matchLabels:
+      app: my-app-with-rolling-update-strategy
+  template:
+    metadata:
+      labels:
+        app: my-app-with-rolling-update-strategy
+    spec:
+      container: 
+      - name: rolling-update-container
+        image: nginx:1.21
+        ports:
+        - containerPort: 80
+
+

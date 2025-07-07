@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app
+  labels:
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: my-app
+  template:
+    # Define template which deployment has to manage using labels 
+    metadata:
+      labels:
+        name: my-app # Deployment has to manage all resources which labeled 'name-myapp'
+    spec:
+
+      containers:
+      - name: my-app-container
+        image: nginx
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "64Mi"
+          limits:
+            cpu: "500m"
+            memory: "128Mi"
+        ports:
+        - containerPort: 80
