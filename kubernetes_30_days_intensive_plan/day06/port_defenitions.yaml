@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    app.kubernetes.io/name: proxy
+spec:
+  containers:
+  - name: nginx-container
+    image: nginx:stable
+    resources:
+      # Defining resources , Qos Class is Guaranteed, If limits ans request is different the Qos CLass will be burstable and if only one is defined then Qos class will be BestEffort
+      requests:
+        memory: "64Mi"
+        cpu: "125m"
+      limits:
+        memory: "64Mi"
+        cpu: "125m"
+    # Exposing Container on port 80 
+    ports:
+    - containerPort: 80
+      name: http-web-svc # Named containerPort as http-web-svc which we will use in service manifest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app.kubernetes.io/name: proxy
+  ports:
+  - name: name-of-service-port
+    protocol: TCP
+    port: 80
+    targetPort: http-web-svc
